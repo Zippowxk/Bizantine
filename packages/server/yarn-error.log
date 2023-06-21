@@ -1,0 +1,52 @@
+Arguments: 
+  /Users/wxkmac/.nvm/versions/node/v16.13.1/bin/node /usr/local/bin/yarn add nodegit
+
+PATH: 
+  /Users/wxkmac/.nvm/versions/node/v16.13.1/bin:/usr/local/Cellar/smlnj/110.84/bin:/bin:/usr/bin:/usr/local/bin:/Users/wxkmac/Documents/opt/apache-maven-3.5.4/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Users/wxkmac/.swiftenv/shims:/Library/Frameworks/Python.framework/Versions/3.6/bin:/Users/wxkmac/.rvm/gems/ruby-2.3.0/bin:/Users/wxkmac/.rvm/gems/ruby-2.3.0@global/bin:/Users/wxkmac/.rvm/rubies/ruby-2.3.0/bin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/usr/local/go/bin:/usr/local/share/dotnet:/opt/X11/bin:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/wxkmac/.nvm/versions/node/v16.13.1/bin:/usr/local/Cellar/smlnj/110.84/bin:/Users/wxkmac/Documents/opt/apache-maven-3.5.4/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Users/wxkmac/.swiftenv/shims:/Library/Frameworks/Python.framework/Versions/3.6/bin:/Users/wxkmac/.rvm/gems/ruby-2.3.0/bin:/Users/wxkmac/.rvm/gems/ruby-2.3.0@global/bin:/Users/wxkmac/.rvm/rubies/ruby-2.3.0/bin:/opt/local/bin:/opt/local/sbin:/Users/wxkmac/.rvm/bin:/Users/wxkmac/Documents/opt/apache-maven-3.5.4/bin//bin:/Users/wxkmac/Library/Android/sdk/platform-tools:/Users/wxkmac/Library/Python/2.7/bin:/usr/local/mysql/bin:/usr/hadoop/hadoop-2.8.0/hive/bin:/usr/hadoop/hadoop-2.8.0/hive/conf:/Users/wxkmac/.rvm/bin:/Users/wxkmac/Documents/opt/apache-maven-3.5.4/bin//bin:/Users/wxkmac/Library/Android/sdk/platform-tools:/Users/wxkmac/Library/Python/2.7/bin:/usr/local/mysql/bin:/usr/hadoop/hadoop-2.8.0/hive/bin:/usr/hadoop/hadoop-2.8.0/hive/conf:/Users/wxkmac/.rvm/bin
+
+Yarn version: 
+  1.15.2
+
+Node version: 
+  16.13.1
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: https://registry.npm.taobao.org/@bizantine%2freport-generator: Not found
+      at Request.params.callback [as _callback] (/usr/local/lib/node_modules/yarn/lib/cli.js:66058:18)
+      at Request.self.callback (/usr/local/lib/node_modules/yarn/lib/cli.js:129541:22)
+      at Request.emit (node:events:390:28)
+      at Request.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:130513:10)
+      at Request.emit (node:events:390:28)
+      at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:130435:12)
+      at Object.onceWrapper (node:events:509:28)
+      at IncomingMessage.emit (node:events:402:35)
+      at endReadableNT (node:internal/streams/readable:1343:12)
+      at processTicksAndRejections (node:internal/process/task_queues:83:21)
+
+npm manifest: 
+  {
+    "name": "@bizantine/server",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+      "start": "node ./bin/www"
+    },
+    "dependencies": {
+      "@bizantine/report-generator": "workspace:^1.0.0",
+      "cookie-parser": "~1.4.3",
+      "debug": "~2.6.9",
+      "express": "~4.16.0",
+      "level": "^8.0.0",
+      "morgan": "~1.9.0",
+      "shared": "workspace:@bizantine/shared@*"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

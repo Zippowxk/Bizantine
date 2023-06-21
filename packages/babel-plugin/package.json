@@ -1,0 +1,27 @@
+{
+  "name": "@bizantine/babel-plugin",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./lib/index.js",
+  "scripts": {
+    "release": "babel src --out-dir lib",
+    "test": "node ./test/test-babel-plugin.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "shared": "workspace:@bizantine/shared@*",
+    "@babel/helper-plugin-utils": "^7.0.0",
+    "@istanbuljs/load-nyc-config": "^1.0.0",
+    "@istanbuljs/schema": "^0.1.2",
+    "istanbul-lib-instrument": "^5.0.4",
+    "test-exclude": "^6.0.0",
+    "source-map": "0.5.6"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.7.5",
+    "@babel/core": "^7.7.5",
+    "@babel/plugin-transform-modules-commonjs": "^7.7.5",
+    "@babel/register": "^7.7.4"
+  }
+}

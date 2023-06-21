@@ -1,0 +1,101 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 5,
+    "total": 5,
+    "workspacePrefix": "/Users/wxkmac/Documents/Github/Bizantine"
+  },
+  "1 debug pnpm:package-manifest": {
+    "initial": {
+      "name": "bizantine",
+      "version": "0.0.1",
+      "description": "FE Runtime Code Coverage",
+      "main": "index.js",
+      "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+      },
+      "keywords": [],
+      "author": "",
+      "license": "ISC",
+      "private": true
+    },
+    "prefix": "/Users/wxkmac/Documents/Github/Bizantine"
+  },
+  "2 debug pnpm:package-manifest": {
+    "initial": {
+      "name": "@bizantine/babel-plugin",
+      "version": "0.0.1",
+      "description": "",
+      "main": "index.js",
+      "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+      },
+      "author": "",
+      "license": "ISC",
+      "dependencies": {
+        "bizantine-shared": "workspace:*"
+      }
+    },
+    "prefix": "/Users/wxkmac/Documents/Github/Bizantine/packages/babel-plugin"
+  },
+  "3 debug pnpm:package-manifest": {
+    "initial": {
+      "name": "@bizantine/server",
+      "version": "0.0.1",
+      "description": "",
+      "main": "index.js",
+      "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+      },
+      "author": "",
+      "license": "ISC"
+    },
+    "prefix": "/Users/wxkmac/Documents/Github/Bizantine/packages/server"
+  },
+  "4 debug pnpm:package-manifest": {
+    "initial": {
+      "name": "@bizantine/vconsole-plugin",
+      "version": "0.0.1",
+      "description": "",
+      "main": "index.js",
+      "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+      },
+      "author": "",
+      "license": "ISC"
+    },
+    "prefix": "/Users/wxkmac/Documents/Github/Bizantine/packages/vconsole-plugin"
+  },
+  "5 debug pnpm:package-manifest": {
+    "initial": {
+      "name": "@bizantine/shared",
+      "version": "0.0.1",
+      "description": "",
+      "main": "index.js",
+      "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+      },
+      "author": "",
+      "license": "ISC"
+    },
+    "prefix": "/Users/wxkmac/Documents/Github/Bizantine/packages/shared"
+  },
+  "6 debug pnpm:context": {
+    "currentLockfileExists": false,
+    "storeDir": "/Users/wxkmac/Library/pnpm/store/v3",
+    "virtualStoreDir": "/Users/wxkmac/Documents/Github/Bizantine/node_modules/.pnpm"
+  },
+  "7 debug pnpm:stage": {
+    "prefix": "/Users/wxkmac/Documents/Github/Bizantine",
+    "stage": "resolution_started"
+  },
+  "8 error pnpm": {
+    "code": "ERR_PNPM_NO_MATCHING_VERSION_INSIDE_WORKSPACE",
+    "pkgsStack": [],
+    "err": {
+      "name": "pnpm",
+      "message": "In packages/babel-plugin: No matching version found for bizantine-shared@* inside the workspace",
+      "code": "ERR_PNPM_NO_MATCHING_VERSION_INSIDE_WORKSPACE",
+      "stack": "pnpm: In packages/babel-plugin: No matching version found for bizantine-shared@* inside the workspace\n    at tryResolveFromWorkspace (/Users/wxkmac/.nvm/versions/node/v16.13.1/lib/node_modules/pnpm/dist/pnpm.cjs:85909:15)\n    at resolveNpm (/Users/wxkmac/.nvm/versions/node/v16.13.1/lib/node_modules/pnpm/dist/pnpm.cjs:85801:39)\n    at Object.resolve (/Users/wxkmac/.nvm/versions/node/v16.13.1/lib/node_modules/pnpm/dist/pnpm.cjs:86031:34)\n    at ctx.requestsQueue.add.priority (/Users/wxkmac/.nvm/versions/node/v16.13.1/lib/node_modules/pnpm/dist/pnpm.cjs:93212:75)\n    at run (/Users/wxkmac/.nvm/versions/node/v16.13.1/lib/node_modules/pnpm/dist/pnpm.cjs:92973:90)\n    at PQueue._tryToStartAnother (/Users/wxkmac/.nvm/versions/node/v16.13.1/lib/node_modules/pnpm/dist/pnpm.cjs:92927:13)\n    at /Users/wxkmac/.nvm/versions/node/v16.13.1/lib/node_modules/pnpm/dist/pnpm.cjs:92986:16\n    at new Promise (<anonymous>)\n    at PQueue.add (/Users/wxkmac/.nvm/versions/node/v16.13.1/lib/node_modules/pnpm/dist/pnpm.cjs:92968:16)\n    at resolveAndFetch (/Users/wxkmac/.nvm/versions/node/v16.13.1/lib/node_modules/pnpm/dist/pnpm.cjs:93212:55)"
+    }
+  }
+}

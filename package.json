@@ -1,0 +1,19 @@
+{
+  "name": "bizantine",
+  "version": "0.0.1",
+  "description": "FE Runtime Code Coverage",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-babel": "cd packages/babel-plugin && yarn release",
+    "test-babel": "cd packages/babel-plugin && yarn test",
+    "start-server": "cd packages/server && yarn start",
+    "start-app": "cd example/app && yarn serve",
+    "build-app": "cd example/app && yarn build",
+    "test-gen": "cd packages/report-generator && yarn test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "private": true
+}

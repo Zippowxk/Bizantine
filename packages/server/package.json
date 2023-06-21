@@ -1,0 +1,18 @@
+{
+  "name": "@bizantine/server",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "@bizantine/report-generator": "workspace:^1.0.0",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "level": "^8.0.0",
+    "morgan": "~1.9.0",
+    "shared": "workspace:@bizantine/shared@*",
+    "simple-git": "^3.17.0"
+  }
+}

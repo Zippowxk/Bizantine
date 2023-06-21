@@ -1,0 +1,1 @@
+export const isDef = (n) => { return n !== undefined && n !== NaN && n !== null}
