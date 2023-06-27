@@ -1,0 +1,1 @@
+module.exports = { FILE_TEMP_PATH: '../../temp' }

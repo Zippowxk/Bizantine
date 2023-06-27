@@ -3,9 +3,9 @@ const path = require("path");
 const { Level } = require('level')
 const crypto = require("crypto");
 const simpleGit = require("simple-git");
-
-const BASEDIR = path.join(__dirname,"../repos/");
-const db = new Level(path.join(__dirname,'../mydb'), { valueEncoding: 'json' })
+const { FILE_TEMP_PATH } = require("./consts.js");
+const BASEDIR = path.join(__dirname,"..",FILE_TEMP_PATH);
+const db = new Level(path.join(BASEDIR,'mydb'), { valueEncoding: 'json' })
 
 const generateRandomString = function (length) {
   // 生成随机字节
@@ -109,7 +109,7 @@ const getDiff = async function (repo, hashs) {
 
   if (!await isRepoExsit(repo)) {
     // create
-    console.log("gen")
+    // console.log("gen")
 
     await createRepo(repo);
   }

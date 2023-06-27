@@ -3,6 +3,8 @@ var router = express.Router();
 const { genReport } = require('@bizantine/report-generator')
 const { getDiff }= require('../utils/git-helper');
 const path = require('path')
+const { FILE_TEMP_PATH } = require("../utils/consts");
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -24,6 +26,7 @@ router.post('/report-cov', async function(req, res, next) {
       ).then((ress) => {
         // console.log(ress);
 
+        // 修正path路径
         const handlePathInCov = (dirname, data) => {
           // data is an Object , not an Array ,iterate it
           Object.keys(data).forEach((key) => {
@@ -31,14 +34,12 @@ router.post('/report-cov', async function(req, res, next) {
             // 给item元素的path属性添加hash前缀路径
             // 拼接 .repos/ 目录下的绝对路径
             const itemPath = item.path
-            item.path = path.join(__dirname,'..','repos', dirname, item.path)
+            item.path = path.join(__dirname,FILE_TEMP_PATH,'repos', dirname, item.path)
             data[itemPath] = data[key] 
             delete data[key]
           })
         }
         handlePathInCov(ress.dirname, req.body.data)
-        // console.log('------------------');
-        // console.log(req.body.data)
         genReport(req.body.data, './public/report/', ress.diff)
 
       });
