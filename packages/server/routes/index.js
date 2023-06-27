@@ -18,11 +18,11 @@ router.post('/report-cov', async function(req, res, next) {
     getDiff(
         "https://oauth2:glpat-xoK4hSZrNtH6vxCr51je@git.haier.net/twb_ehaier/web-c/bizantine-example-app.git",
         [
-          "d80ace321716b02ecdf12217e11d1248ad607209",
-          "fa5dc686696adfa4111ddb3d737860fcedd6fbfb"
+          "d80ace32", // old
+          "92f6941a"  // new 
         ]
       ).then((ress) => {
-        console.log(ress);
+        // console.log(ress);
 
         const handlePathInCov = (dirname, data) => {
           // data is an Object , not an Array ,iterate it
@@ -37,8 +37,8 @@ router.post('/report-cov', async function(req, res, next) {
           })
         }
         handlePathInCov(ress.dirname, req.body.data)
-        console.log('------------------');
-        console.log(req.body.data)
+        // console.log('------------------');
+        // console.log(req.body.data)
         genReport(req.body.data, './public/report/', ress.diff)
 
       });

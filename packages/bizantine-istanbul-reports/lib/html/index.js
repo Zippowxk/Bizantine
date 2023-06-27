@@ -386,27 +386,29 @@ class HtmlReport extends ReportBase {
         children.forEach(child => {
             // console.log("child",child)
             const metrics = child.getCoverageSummary();
-            metrics.increments = {
-                pct: 0,
-                total: 0,
-                covered: 0,
-                skipped: 0,
-            }
-            if (child) {
-                try {
-                const fileCoverage = child.getFileCoverage()
-                // const { incrementCoveredSummury } = fc
-                if (fileCoverage) {
-                    console.log('fc.incrementCoveredSummury: ',fileCoverage.data.incrementCoveredSummury)
-                    metrics.increments = {
-                        pct: fileCoverage?.data?.incrementPct || 100,
-                        total: fileCoverage?.data?.incrementTotal || 0,
-                        covered: fileCoverage?.data?.incrementCovered || 0,
-                        skipped: 0,
-                    }
-                }
-                } catch(e) {}
-            }
+            // console.log('metrics2', metrics)
+            // throw new Error('stop')
+            // metrics.increments = {
+            //     pct: 0,
+            //     total: 0,
+            //     covered: 0,
+            //     skipped: 0,
+            // }
+            // if (child) {
+            //     try {
+            //     const fileCoverage = child.getFileCoverage()
+            //     // const { incrementCoveredSummury } = fc
+            //     if (fileCoverage) {
+            //         // console.log('fc.incrementCoveredSummury: ',fileCoverage.data)
+            //         metrics.increments = {
+            //             pct: fileCoverage?.data?.incrementPct || 100,
+            //             total: fileCoverage?.data?.incrementTotal || 0,
+            //             covered: fileCoverage?.data?.incrementCovered || 0,
+            //             skipped: 0,
+            //         }
+            //     }
+            //     } catch(e) {}
+            // }
           
 
             const isEmpty = metrics.isEmpty();
@@ -438,8 +440,7 @@ class HtmlReport extends ReportBase {
                       )
                   };
                   
-                  console.log('++++++++++++++++++++++++++++++');
-                  console.log(context);
+
             const data = {
                 metrics: isEmpty ? fixPct(metrics) : metrics,
                 reportClasses,

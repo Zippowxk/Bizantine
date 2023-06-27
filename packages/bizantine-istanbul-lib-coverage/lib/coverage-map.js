@@ -38,6 +38,7 @@ class CoverageMap {
     constructor(obj) {
         if (obj instanceof CoverageMap) {
             this.data = obj.data;
+            this.data.increment = obj.increment;
         } else {
             this.data = loadMap(obj);
         }

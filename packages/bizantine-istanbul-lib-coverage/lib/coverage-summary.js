@@ -8,11 +8,11 @@ const percent = require('./percent');
 const dataProperties = require('./data-properties');
 
 function blankSummary() {
-    const empty = () => ({
+    const empty = (pct = 'Unknown') => ({
         total: 0,
         covered: 0,
         skipped: 0,
-        pct: 'Unknown'
+        pct: pct
     });
 
     return {
@@ -20,14 +20,15 @@ function blankSummary() {
         statements: empty(),
         functions: empty(),
         branches: empty(),
-        branchesTrue: empty()
+        branchesTrue: empty(),
+        increments: empty('100'),
     };
 }
 
 // asserts that a data object "looks like" a summary coverage object
 function assertValidSummary(obj) {
     const valid =
-        obj && obj.lines && obj.statements && obj.functions && obj.branches;
+        obj && obj.lines && obj.statements && obj.functions && obj.branches && obj.increments;
     if (!valid) {
         throw new Error(
             'Invalid summary coverage object, missing keys, found:' +
@@ -53,8 +54,13 @@ class CoverageSummary {
             this.data = blankSummary();
         } else if (obj instanceof CoverageSummary) {
             this.data = obj.data;
+            // this.data.increments = obj.increments
         } else {
+            // throw new Error('stop')
+            // console.log('==================');
+            // console.log(obj)
             this.data = obj;
+            // this.data.increments = obj.increments
         }
         assertValidSummary(this.data);
     }
@@ -69,7 +75,8 @@ class CoverageSummary {
             'statements',
             'branches',
             'functions',
-            'branchesTrue'
+            'branchesTrue',
+            'increments',
         ];
         keys.forEach(key => {
             if (obj[key]) {

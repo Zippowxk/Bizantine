@@ -260,6 +260,23 @@ class FileCoverage {
             stats = stats.call(this);
         }
 
+        if (property == 'increment') {
+            if (!this['incrementTotal']) {
+                return {
+                    total: 0,
+                    covered: 0,
+                    skipped: 0,
+                    pct: 100,
+                }
+            }
+            return {
+                total: this['incrementTotal'],
+                covered: this['incrementCovered'],
+                skipped: 0,
+                pct: this['incrementPct']
+            }
+        }
+
         const ret = {
             total: Object.keys(stats).length,
             covered: Object.values(stats).filter(v => !!v).length,
@@ -323,6 +340,12 @@ class FileCoverage {
         if (this['bt']) {
             ret.branchesTrue = this.computeBranchTotals('bT');
         }
+        ret.branches = this.computeBranchTotals('b');
+        ret.increments = this.computeSimpleTotals('increment');
+        // console.log('???????????????????????????');
+        // console.log(ret)
+        // console.log(this)
+        // throw new Error('test')
         return new CoverageSummary(ret);
     }
 }
@@ -338,7 +361,11 @@ dataProperties(FileCoverage, [
     'b',
     'bT',
     'all',
-    'data',
+    'incrementTotal',
+    'incrementStatementMap',
+    'incrementCovered',
+    'incrementPct',
+    'incrementCoveredS',
 ]);
 
 module.exports = {

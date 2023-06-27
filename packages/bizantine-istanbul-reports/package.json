@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "html-escaper": "^2.0.0",
-    "istanbul-lib-report": "^3.0.0",
+    "istanbul-lib-report": "npm:@bizantine/istanbul-lib-report@^0.0.1",
     "istanbul-lib-coverage": "npm:@bizantine/istanbul-lib-coverage@^0.0.1"
   },
   "devDependencies": {

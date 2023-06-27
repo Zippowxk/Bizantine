@@ -1,4 +1,4 @@
-const libReport = require("istanbul-lib-report");
+const libReport = require("@bizantine/istanbul-lib-report");
 // const reports = require("istanbul-reports");
 const reports = require('@bizantine/istanbul-reports')
 const { createCoverageMap } = require("istanbul-lib-coverage");
@@ -24,7 +24,7 @@ const genGitDiffCoverage = (diffString, coverageMap) => {
  
   const diff = parseGitDiff(diffString)
 
-  const genFileDiffCov = (data, lines) =>{
+  const genFileDiffCov = (data, lines) => {
     const { statementMap, s } = data;
     const incrementStatementMap = {}
     const incrementCoveredS = {}
@@ -42,10 +42,10 @@ const genGitDiffCoverage = (diffString, coverageMap) => {
         }
       }
     });
-  
+
     // 获取新增语句的index
     const incrementStatementNum = Object.keys(incrementStatementMap);
-  
+
     // 获取被覆盖的新增语句
     Object.entries(s).forEach(([k, v]) => {
       // 判断语句是否被覆盖
@@ -57,16 +57,17 @@ const genGitDiffCoverage = (diffString, coverageMap) => {
         }
       }
     });
-  
+
     // 新增语句的Map，包含location信息
     data.incrementStatementMap = incrementStatementMap;
-  
+
     // 新增被覆盖语句计数器
     data.incrementCoveredS = incrementCoveredS;
     data.incrementPct = Object.keys(incrementCoveredS).length / Object.keys(incrementStatementNum).length * 100
     data.incrementTotal = Object.keys(incrementStatementNum).length
     data.incrementCovered = Object.keys(incrementCoveredS).length
   }
+
   const changeLines = (changes) => {
     const lines = []
     changes.forEach(item=>{
@@ -85,8 +86,9 @@ const genGitDiffCoverage = (diffString, coverageMap) => {
     //  console.log(coverageMap)
     //  console.log(realPath)
      if (covfile) {
-      // console.log("cover file")
-       genFileDiffCov(covfile, changeLines(difile.chunks.reduce((acc,cur)=>acc.concat(cur)).changes))
+      console.log("cover file",covfile)
+      console.log('difile.chunks:',difile.chunks.reduce((acc, cur) => acc.concat(cur.changes),[]))
+       genFileDiffCov(covfile, changeLines(difile.chunks.reduce((acc, cur) => acc.concat(cur.changes),[])))
      }
   })
   
@@ -99,12 +101,11 @@ const genReport = async (obj, target, diff) => {
   await remap(obj)
 
   if (diff) {
-    console.log('difffff')
+    // console.log('difffff')
     genGitDiffCoverage(diff, obj)
     // console.log(obj)
   }
   const coverageMap = createCoverageMap(obj);
-  // console.log(JSON.stringify(coverageMap)) 
   
   const configWatermarks = {
     statements: [50, 80],
@@ -127,8 +128,8 @@ const genReport = async (obj, target, diff) => {
   // create an instance of the relevant report class, passing the
   // report name e.g. json/html/html-spa/text
   const report = reports.create("html", {
-    skipEmpty: false,
-    skipFull: false,
+    skipEmpty: true,
+    skipFull: true,
   });
 
   // call execute to synchronously create and write the report to disk

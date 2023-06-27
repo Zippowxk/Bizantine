@@ -11,8 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "@bizantine/istanbul-reports": "workspace:^0.0.1",
-    "istanbul-lib-coverage": "^3.2.0",
-    "istanbul-lib-report": "^3.0.0",
+    "istanbul-lib-coverage": "npm:@bizantine/istanbul-lib-coverage@^0.0.1",
+    "@bizantine/istanbul-lib-report": "workspace:^0.0.1",
     "istanbul-reports": "^3.1.5",
     "parse-git-diff": "^0.0.8",
     "source-map": "^0.7.4"
