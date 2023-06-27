@@ -86,8 +86,8 @@ const genGitDiffCoverage = (diffString, coverageMap) => {
     //  console.log(coverageMap)
     //  console.log(realPath)
      if (covfile) {
-      console.log("cover file",covfile)
-      console.log('difile.chunks:',difile.chunks.reduce((acc, cur) => acc.concat(cur.changes),[]))
+      // console.log("cover file",covfile)
+      // console.log('difile.chunks:',difile.chunks.reduce((acc, cur) => acc.concat(cur.changes),[]))
        genFileDiffCov(covfile, changeLines(difile.chunks.reduce((acc, cur) => acc.concat(cur.changes),[])))
      }
   })

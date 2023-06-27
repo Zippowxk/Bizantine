@@ -64,7 +64,7 @@ function headerTemplate(details) {
             </div>
         `;
     }
-    console.log(details.metrics)
+    // console.log(details.metrics)
     return `
 <!doctype html>
 <html lang="en">

@@ -1,1 +1,1 @@
-module.exports = { FILE_TEMP_PATH: '../../temp' }
+module.exports = { FILE_TEMP_PATH: '../../../temp' }

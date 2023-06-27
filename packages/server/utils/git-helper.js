@@ -4,7 +4,8 @@ const { Level } = require('level')
 const crypto = require("crypto");
 const simpleGit = require("simple-git");
 const { FILE_TEMP_PATH } = require("./consts.js");
-const BASEDIR = path.join(__dirname,"..",FILE_TEMP_PATH);
+const BASEDIR = path.join(__dirname,FILE_TEMP_PATH);
+const GIT_BASEDIR = path.join(BASEDIR,'repos');
 const db = new Level(path.join(BASEDIR,'mydb'), { valueEncoding: 'json' })
 
 const generateRandomString = function (length) {
@@ -19,7 +20,7 @@ const generateRandomString = function (length) {
 const isRepoExsit = async function (url) {
   const dir = await getRepoDir(url);
   if (!dir) return false
-  const filePath = path.join(BASEDIR, dir);
+  const filePath = path.join(GIT_BASEDIR, dir);
   const res = fs.existsSync(filePath)
   return res
 };
@@ -57,7 +58,7 @@ const createRepo = async function (
   // const username = "wangxinkai";
   // const password = "your_password";
   const dirname = await genRepoDir(url);
-  const localPath = path.join(BASEDIR, dirname);
+  const localPath = path.join(GIT_BASEDIR, dirname);
 
   // Clone remote repository
   return new Promise((resovle, reject) => {
@@ -82,7 +83,7 @@ const updateRepo = function () {};
 const getDiffMessage = async function (repo, hashs) {
   return new Promise( async (resovle,reject) =>{
     const dirname = await getRepoDir(repo);
-    const localPath = path.join(BASEDIR, dirname)
+    const localPath = path.join(GIT_BASEDIR, dirname)
     const git = simpleGit(localPath)
     // git.status({}, (err,log) => {
     //   console.log('status')
