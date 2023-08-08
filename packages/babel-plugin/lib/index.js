@@ -72,6 +72,10 @@ function findConfig(opts) {
 function makeShouldSkip() {
   let exclude;
   return function shouldSkip(file, nycConfig) {
+    console.log('include: ',nycConfig.include)
+    console.log('exclude: ',nycConfig.exclude)
+    console.log('extension:',nycConfig.extension)
+    console.log('file:',file)
     if (!exclude || exclude.cwd !== nycConfig.cwd) {
       exclude = new _testExclude.default({
         cwd: nycConfig.cwd,
@@ -82,11 +86,12 @@ function makeShouldSkip() {
         excludeNodeModules: nycConfig.excludeNodeModules !== false
       });
     }
+    console.log('should ins:',exclude.shouldInstrument(file))
     return !exclude.shouldInstrument(file);
   };
 }
 function getRelativeFilePath(realPath, root) {
-  const relativePathArr = realPath.split(root);
+  const relativePathArr = realPath.split(root + '/');
   return relativePathArr.length == 2 ? relativePathArr[1] : undefined;
 }
 var _default = (0, _helperPluginUtils.declare)(api => {
@@ -100,9 +105,9 @@ var _default = (0, _helperPluginUtils.declare)(api => {
           this.__dv__ = null;
           this.nycConfig = findConfig(this.opts);
           const realPath = getRealpath(this.file.opts.filename);
-          // if (shouldSkip(realPath, this.nycConfig)) {
-          //   return
-          // }
+          if (shouldSkip(realPath, this.nycConfig)) {
+            return;
+          }
           let {
             inputSourceMap
           } = this.opts;
@@ -119,7 +124,15 @@ var _default = (0, _helperPluginUtils.declare)(api => {
               visitorOptions[name] = _schema.default.defaults.instrumentVisitor[name];
             }
           });
-          console.log(inputSourceMap);
+          const relativePath = getRelativeFilePath(realPath, this.file.opts.root);
+          if (inputSourceMap) {
+            inputSourceMap.relativePath = relativePath;
+          } else {
+            inputSourceMap = {
+              relativePath
+            };
+          }
+          // console.log(inputSourceMap)
           this.__dv__ = (0, _istanbulLibInstrument.programVisitor)(t, realPath /*getRelativeFilePath(realPath, this.file.opts.root)*/, {
             ...visitorOptions,
             inputSourceMap

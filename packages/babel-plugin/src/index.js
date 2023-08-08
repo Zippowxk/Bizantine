@@ -95,7 +95,7 @@ function makeShouldSkip() {
 }
 
 function getRelativeFilePath(realPath, root) {
-  const relativePathArr = realPath.split(root);
+  const relativePathArr = realPath.split(root+'/');
   return relativePathArr.length == 2 ? relativePathArr[1] : undefined;
 }
 export default declare((api) => {
@@ -111,9 +111,9 @@ export default declare((api) => {
           this.__dv__ = null;
           this.nycConfig = findConfig(this.opts);
           const realPath = getRealpath(this.file.opts.filename);
-          // if (shouldSkip(realPath, this.nycConfig)) {
-          //   return
-          // }
+          if (shouldSkip(realPath, this.nycConfig)) {
+            return
+          }
           let { inputSourceMap } = this.opts;
           if (this.opts.useInlineSourceMaps !== false) {
             if (!inputSourceMap && this.file.inputMap) {
@@ -130,8 +130,13 @@ export default declare((api) => {
               }
             }
           );
-
-          console.log(inputSourceMap)
+          const relativePath = getRelativeFilePath(realPath, this.file.opts.root)
+          if (inputSourceMap) {
+            inputSourceMap.relativePath = relativePath
+          } else {
+            inputSourceMap = { relativePath }
+          }
+          // console.log(inputSourceMap)
           this.__dv__ = programVisitor(
             t,
             realPath /*getRelativeFilePath(realPath, this.file.opts.root)*/,

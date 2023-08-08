@@ -10,7 +10,9 @@
     "start-server": "cd packages/server && yarn start",
     "start-app": "cd example/app && yarn serve",
     "build-app": "cd example/app && yarn build",
-    "test-gen": "cd packages/report-generator && yarn test"
+    "test-gen": "cd packages/report-generator && yarn test",
+    "build-vcplugin": "cd packages/vconsole-plugin && yarn build",
+    "dev-vcplugin": "cd packages/vconsole-plugin && yarn dev"
   },
   "keywords": [],
   "author": "",

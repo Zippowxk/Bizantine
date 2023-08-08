@@ -33,14 +33,27 @@ router.post('/report-cov', async function(req, res, next) {
             const item = data[key]
             // 给item元素的path属性添加hash前缀路径
             // 拼接 .repos/ 目录下的绝对路径
-            const itemPath = item.path
-            item.path = path.join(__dirname,FILE_TEMP_PATH,'repos', dirname, item.path)
-            data[itemPath] = data[key] 
+            if (!item.inputSourceMap || !item.inputSourceMap.relativePath) {
+              delete item['inputSourceMap']
+              return
+             }
+            const itemPath = item.inputSourceMap.relativePath
+            // log all path join params
+            console.log('path.join:',__dirname,FILE_TEMP_PATH,'repos', dirname, itemPath)
+            item.path = path.join(__dirname,FILE_TEMP_PATH,'repos', dirname, itemPath)
+            data[itemPath] = data[key]
+            // 删掉临时的字段
+            if (!item.inputSourceMap.mappings) {
+              delete item['inputSourceMap']
+            }
             delete data[key]
           })
         }
-        handlePathInCov(ress.dirname, req.body.data)
-        genReport(req.body.data, './public/report/', ress.diff)
+        console.log('dirname:',ress.dirname)
+        handlePathInCov(ress.dirname, req.body.data) 
+        // console.log(req.body.data)
+        genReport(req.body.data, `./public/report/${req.body.featureId}`, ress.diff)
+        // genReport(req.body.data, `./public/report`, ress.diff)
 
       });
       

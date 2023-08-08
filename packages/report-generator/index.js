@@ -60,12 +60,14 @@ const genGitDiffCoverage = (diffString, coverageMap) => {
 
     // 新增语句的Map，包含location信息
     data.incrementStatementMap = incrementStatementMap;
-
     // 新增被覆盖语句计数器
     data.incrementCoveredS = incrementCoveredS;
     data.incrementPct = Object.keys(incrementCoveredS).length / Object.keys(incrementStatementNum).length * 100
     data.incrementTotal = Object.keys(incrementStatementNum).length
     data.incrementCovered = Object.keys(incrementCoveredS).length
+
+    console.log('1111111111111111111111111111')
+    console.log(data)
   }
 
   const changeLines = (changes) => {
@@ -83,10 +85,10 @@ const genGitDiffCoverage = (diffString, coverageMap) => {
      const realPath = difile.path// root + difile.path
      const covfile = coverageMap[realPath]
     //  console.log('=================================');
-    //  console.log(coverageMap)
-    //  console.log(realPath)
+    //  console.log("coverageMap:",coverageMap)
+    //  console.log("realPath:",realPath)
      if (covfile) {
-      // console.log("cover file",covfile)
+      console.log("cover file",covfile)
       // console.log('difile.chunks:',difile.chunks.reduce((acc, cur) => acc.concat(cur.changes),[]))
        genFileDiffCov(covfile, changeLines(difile.chunks.reduce((acc, cur) => acc.concat(cur.changes),[])))
      }
@@ -101,7 +103,7 @@ const genReport = async (obj, target, diff) => {
   await remap(obj)
 
   if (diff) {
-    // console.log('difffff')
+    console.log('difffff:',obj)
     genGitDiffCoverage(diff, obj)
     // console.log(obj)
   }
