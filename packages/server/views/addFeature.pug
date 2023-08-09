@@ -1,0 +1,18 @@
+doctype html
+html
+  head
+    title Add Feature
+  body
+    h2 Add Feature to Project
+
+    form(method="post", action="/project/" + projectId + "/features")
+      label(for="title") title:
+      input(type="text", id="title", name="title", required)
+      
+      label(for="Begining Commit Hash") Begining Commit Hash:   
+      input(type="text", id="oldHash", name="oldHash", required)
+
+      label(for="lastest Commit Hash") lastest Commit Hash:
+      input(type="text", id="newHash", name="newHash", required)
+
+      button(type="submit") Add Feature

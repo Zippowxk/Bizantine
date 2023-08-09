@@ -27,6 +27,8 @@ const isRepoExsit = async function (url) {
 
 const getRepoDir = async function (url) {
   return new Promise((resolve, reject) => {
+    console.log("--------",url)
+
     db.get(url, function (err, value) {
       if (value && value != "undefined") {
         resolve(value);
@@ -83,6 +85,9 @@ const updateRepo = function () {};
 const getDiffMessage = async function (repo, hashs) {
   return new Promise( async (resovle,reject) =>{
     const dirname = await getRepoDir(repo);
+    console.log('2222222222')
+    console.log(dirname)
+
     const localPath = path.join(GIT_BASEDIR, dirname)
     const git = simpleGit(localPath)
     // git.status({}, (err,log) => {

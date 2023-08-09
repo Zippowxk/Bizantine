@@ -1,0 +1,53 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Bizantine
+        
+    body
+    h2 Bizantine
+
+    form(id="projectForm" method='post' action='/project')
+      label(for="name") Name:
+      input(type="text", id="name", name="name", required)
+
+      label(for="gitUrl") Git URL:
+      input(type="text", id="gitUrl", name="gitUrl", required)
+
+      label(for="token") Token:
+      input(type="text", id="token", name="token", required)
+
+      button(type="submit") Save
+
+    h3 Projects List:
+    ul(id="projectList")
+      each project in projects
+        li 
+            span #{project.name} (#{project.gitUrl})
+            a(class='mg10' href="/project/" + project._id + "/features", ) Add Feature
+            form(method="post", action="/project/" + project._id + "/delete", style="display: inline;")
+                button(class='mg10' type="submit") Delete 
+            ul
+                each feature in project.features
+                    li
+                        span featureID: #{feature.title}  hash:[#{feature.oldHash}-#{feature.newHash}]
+                        a(class='mg10' href="/report/" + project.name + '/' + feature.title, target='_blank') Report
+
+
+    style(type="text/css").
+        button[class="mg10"] {
+            margin: 0 10px;
+        }
+        a[class="mg10"] {
+            margin: 0 10px;
+        }
+       
+        li {
+            padding-top: 10px;
+        } 
+        input {
+            margin: 0 20px 0 10px;
+        }
+    script.
+      // Add your JS here...

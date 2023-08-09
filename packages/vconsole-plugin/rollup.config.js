@@ -14,10 +14,7 @@ export default {
     },
     plugins: [
         svelte({
-            dev: !production,
-            css: css => {
-                css.write('dist/bundle.css');
-            }
+            include: 'src/**/*.svelte',
         }),
         resolve({
             browser: true,

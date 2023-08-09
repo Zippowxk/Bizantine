@@ -8,6 +8,7 @@
     "build-babel": "cd packages/babel-plugin && yarn release",
     "test-babel": "cd packages/babel-plugin && yarn test",
     "start-server": "cd packages/server && yarn start",
+    "start-mongo": "cd packages/server && yarn start-mongo",
     "start-app": "cd example/app && yarn serve",
     "build-app": "cd example/app && yarn build",
     "test-gen": "cd packages/report-generator && yarn test",

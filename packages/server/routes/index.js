@@ -4,11 +4,67 @@ const { genReport } = require('@bizantine/report-generator')
 const { getDiff }= require('../utils/git-helper');
 const path = require('path')
 const { FILE_TEMP_PATH } = require("../utils/consts");
+const Project = require('../dbs/models/projectModel')
+const mongoose = require('../dbs/mongo')
+// const projects = [
+//   { _id: '1', name: 'Project A', gitUrl: 'http://git.url/a', token: 'tokenA' },
+// ];
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+router.get('/', async (req, res) => {
+  try {
+    const projects = await Project.find({});
+    res.render('index', { projects: projects });
+    console.log(projects);
+  } catch (error) {
+    console.log(error)
+  }
+
 });
+
+router.post('/project', async (req, res) => {
+  // Add project
+  const projectData = {
+      name: req.body.name,
+      gitUrl: req.body.gitUrl,
+      token: req.body.token
+  };
+  const project = new Project(projectData);
+  await project.save();
+  res.redirect('/');
+});
+
+router.post('/project/:id/delete', async (req, res) => {
+  await Project.findByIdAndDelete(req.params.id);
+  res.redirect('/');
+});
+
+
+router.get('/project/:id/features', async (req, res) => {
+    try {
+        const project = await Project.findById(req.params.id);
+        res.render('addFeature', { projectId: project._id });
+    } catch (err) {
+        res.status(500).send('Error retrieving project');
+    }
+});
+
+// Route to handle form submission
+router.post('/project/:id/features', async (req, res) => {
+    try {
+        const project = await Project.findById(req.params.id);
+        if (!project) {
+            return res.status(404).send('Project not found');
+        }
+        project.features.push(req.body);  // Add the new feature to the features array
+        await project.save();
+        res.redirect('/');
+    } catch (err) {
+        res.status(500).send('Error adding feature');
+    }
+});
+
+
 
 // body 存放report信息
 // params.commits hash
@@ -16,12 +72,36 @@ router.get('/', function(req, res, next) {
 router.post('/report-cov', async function(req, res, next) {
  if (req.body) {
 
+    const findProjectByName = async (name, title) => {
+      // mongoose find 
+      const project = await Project.findOne({name});
+      console.log(title)
+
+      const feature = project.features.find((item)=>{ return item.title==title})
+      console.log(feature)
+      return {
+        gitRepo: `https://oauth2:${project.token}@${project.gitUrl}`,
+        feature
+      }
+
+    } 
+
+    if (!req.body.projectName || !req.body.featureId || !req.body.data) {
+      res.send({
+        'success': false, 
+        'message': 'projectName, data or featureId required'
+      })
+      return 
+    }
+
+    const {gitRepo, feature} = await findProjectByName(req.body.projectName, req.body.featureId)
     // if(req.query.commits && req.query.repo) {
+    console.log(gitRepo)
     getDiff(
-        "https://oauth2:glpat-xoK4hSZrNtH6vxCr51je@git.haier.net/twb_ehaier/web-c/bizantine-example-app.git",
+        gitRepo,
         [
-          "d80ace32", // old
-          "92f6941a"  // new 
+          feature.oldHash, // old
+          feature.newHash  // new 
         ]
       ).then((ress) => {
         // console.log(ress);
@@ -52,7 +132,7 @@ router.post('/report-cov', async function(req, res, next) {
         console.log('dirname:',ress.dirname)
         handlePathInCov(ress.dirname, req.body.data) 
         // console.log(req.body.data)
-        genReport(req.body.data, `./public/report/${req.body.featureId}`, ress.diff)
+        genReport(req.body.data, `./public/report/${req.body.projectName}/${req.body.featureId}`, ress.diff)
         // genReport(req.body.data, `./public/report`, ress.diff)
 
       });

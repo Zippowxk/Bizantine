@@ -6,6 +6,12 @@ const mdb_url = 'mongodb://localhost:27017/bizantine'
 // useNewUrlParser:true  是否使用新的url地址转换方式
 // useUnifiedTopology:true  是否使用新的用户安全策略
 Mongoose.connect(mdb_url,{useNewUrlParser:true,useUnifiedTopology:true})
+
+// const AutoIncrement = require('mongoose-sequence')(Mongoose);
+
+// const autoIncrement = require('mongoose-auto-increment');
+// autoIncrement.initialize(Mongoose.connection);
+
 // 4.对连接过程进行处理
 //4.1建立连接-----连接成功会触发connected事件
 Mongoose.connection.on('connected',function (){
@@ -19,6 +25,6 @@ Mongoose.connection.on('error',function (err){
 Mongoose.connection.on('disconnected',function (){
     console.log('断开数据库的连接！！！')
 })
- 
+
 //5.导出Mongoose
 module.exports = Mongoose
