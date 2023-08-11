@@ -13,6 +13,7 @@ const FeatureSchema = new Schema({
     oldHash: String,
     newHash: String,
     status: String, // 0: untested, 1: passed, 2: failed
+    coverRawData: String, // coverage raw data
 });
 
 // FeatureSchema.plugin(AutoIncrement, {inc_field: 'featureId'});

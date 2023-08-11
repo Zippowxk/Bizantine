@@ -3916,7 +3916,7 @@ packages:
       loader-utils: registry.npmmirror.com/loader-utils/2.0.4
       make-dir: registry.npmmirror.com/make-dir/3.1.0
       schema-utils: registry.npmmirror.com/schema-utils/2.7.1
-      webpack: registry.npmmirror.com/webpack/4.46.0
+      webpack: registry.npmmirror.com/webpack/4.46.0_webpack-cli@3.3.12
     dev: true
 
   registry.npmmirror.com/babel-messages/6.23.0:
@@ -13234,7 +13234,7 @@ packages:
       serialize-javascript: registry.npmmirror.com/serialize-javascript/4.0.0
       source-map: registry.npmmirror.com/source-map/0.6.1
       terser: registry.npmmirror.com/terser/4.8.1
-      webpack: registry.npmmirror.com/webpack/4.46.0
+      webpack: registry.npmmirror.com/webpack/4.46.0_webpack-cli@3.3.12
       webpack-sources: registry.npmmirror.com/webpack-sources/1.4.3
       worker-farm: registry.npmmirror.com/worker-farm/1.7.0
     dev: true

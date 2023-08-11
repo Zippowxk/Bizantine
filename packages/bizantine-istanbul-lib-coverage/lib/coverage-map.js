@@ -40,6 +40,7 @@ class CoverageMap {
             this.data = obj.data;
             this.data.increment = obj.increment;
         } else {
+            this.rawJson = obj;
             this.data = loadMap(obj);
         }
     }
@@ -55,6 +56,27 @@ class CoverageMap {
         Object.values(other.data).forEach(fc => {
             this.addFileCoverage(fc);
         });
+    }
+
+    /**
+     * merges a second coverage map into this one
+     * @param {CoverageMap} obj - a CoverageMap or its raw data. Coverage is merged
+     *  correctly for the same files and additional file coverage keys are created
+     *  as needed.
+     */
+    mergeByKeys(obj) {
+        const other = maybeConstruct(obj, CoverageMap);
+        // iterate obj
+        Object.keys(other.data).forEach((key) => {
+            const fc = obj[key];
+            const cov = new FileCoverage(fc);
+            // const { path } = cov;
+            if (this.data[key]) {
+                this.data[key].merge(cov);
+            } else {
+                this.data[key] = cov;
+            }
+        })
     }
 
     /**
@@ -79,6 +101,9 @@ class CoverageMap {
         return this.data;
     }
 
+    getRawJson() {
+        return this.rawJson;
+    }
     /**
      * returns an array for file paths for which this map has coverage
      * @returns {Array{string}} - array of files

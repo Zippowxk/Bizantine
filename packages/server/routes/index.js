@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const { genReport } = require('@bizantine/report-generator')
-const { getDiff }= require('../utils/git-helper');
+const { getDiff, checkoutRepo }= require('../utils/git-helper');
 const path = require('path')
 const { FILE_TEMP_PATH } = require("../utils/consts");
 const Project = require('../dbs/models/projectModel')
@@ -81,7 +81,8 @@ router.post('/report-cov', async function(req, res, next) {
       console.log(feature)
       return {
         gitRepo: `https://oauth2:${project.token}@${project.gitUrl}`,
-        feature
+        feature,
+        project
       }
 
     } 
@@ -94,9 +95,8 @@ router.post('/report-cov', async function(req, res, next) {
       return 
     }
 
-    const {gitRepo, feature} = await findProjectByName(req.body.projectName, req.body.featureId)
-    // if(req.query.commits && req.query.repo) {
-    console.log(gitRepo)
+    const {gitRepo, feature, project} = await findProjectByName(req.body.projectName, req.body.featureId)
+
     getDiff(
         gitRepo,
         [
@@ -131,8 +131,15 @@ router.post('/report-cov', async function(req, res, next) {
         }
         console.log('dirname:',ress.dirname)
         handlePathInCov(ress.dirname, req.body.data) 
-        // console.log(req.body.data)
-        genReport(req.body.data, `./public/report/${req.body.projectName}/${req.body.featureId}`, ress.diff)
+        checkoutRepo(gitRepo, feature.newHash)
+        genReport(req.body.data, `./public/report/${req.body.projectName}/${req.body.featureId}`, ress.diff, !req.body.cover ? feature.coverRawData ? JSON.parse(feature.coverRawData) : null : null).then((coverRawData)=>{
+          try {
+            feature.coverRawData = JSON.stringify(coverRawData)
+            project.save();
+          } catch (error) {
+            console.log(error)
+          }
+        })
         // genReport(req.body.data, `./public/report`, ress.diff)
 
       });

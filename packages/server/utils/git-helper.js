@@ -80,12 +80,22 @@ const createRepo = async function (
   });
 };
 
-const updateRepo = function () {};
+const updateRepo = function (repo) {
+  return new Promise( async (resovle,reject) =>{
+    const dirname = await getRepoDir(repo);
+    const localPath = path.join(GIT_BASEDIR, dirname)
+    const git = simpleGit(localPath)
+    git.fetch('origin', (err, res) => {
+      console.log('err',err)
+      console.log('res',res)
+      resovle()
+    })
+  })
+};
 
 const getDiffMessage = async function (repo, hashs) {
   return new Promise( async (resovle,reject) =>{
     const dirname = await getRepoDir(repo);
-    console.log('2222222222')
     console.log(dirname)
 
     const localPath = path.join(GIT_BASEDIR, dirname)
@@ -109,7 +119,7 @@ const getDiffMessage = async function (repo, hashs) {
   // })
 };
 
-const getDiff = async function (repo, hashs) {
+const getDiff = async function (repo, hashs, branch) {
 
   // console.log("res: "+ await isRepoExsit(repo))
 
@@ -118,12 +128,27 @@ const getDiff = async function (repo, hashs) {
     // console.log("gen")
 
     await createRepo(repo);
+  } else {
+    await updateRepo(repo);
   }
-
   return await getDiffMessage(repo, hashs);
 };
 
+const checkoutRepo =  async function (repo, branch) {
+  const dirname = await getRepoDir(repo);
+  const localPath = path.join(GIT_BASEDIR, dirname);
+  const git = simpleGit(localPath);
+  git.checkout(branch, (err, res) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(res);
+    }
+  });
+}
+
 module.exports = {
   getDiff,
+  checkoutRepo
 };
 // const

@@ -5,10 +5,9 @@
    let cover = 0;
 
    async function handleReport(event) {
-      // alert(featureId);
-      // console.log(window.__coverage__)
+      
       const url = `${server}/report-cov`;
-      const data = { featureId, projectName, data: window.__coverage__ };
+      const data = { featureId, projectName, data: window.__coverage__ , cover };
 
       const response = await fetch(url, {
          method: "POST",
