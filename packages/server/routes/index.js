@@ -75,10 +75,10 @@ router.post('/report-cov', async function(req, res, next) {
     const findProjectByName = async (name, title) => {
       // mongoose find 
       const project = await Project.findOne({name});
-      console.log(title)
+      // console.log(title)
 
       const feature = project.features.find((item)=>{ return item.title==title})
-      console.log(feature)
+      // console.log(feature)
       return {
         gitRepo: `https://oauth2:${project.token}@${project.gitUrl}`,
         feature,
@@ -129,7 +129,7 @@ router.post('/report-cov', async function(req, res, next) {
             delete data[key]
           })
         }
-        console.log('dirname:',ress.dirname)
+        // console.log('dirname:',ress.dirname)
         handlePathInCov(ress.dirname, req.body.data) 
         checkoutRepo(gitRepo, feature.newHash)
         genReport(req.body.data, `./public/report/${req.body.projectName}/${req.body.featureId}`, ress.diff, !req.body.cover ? feature.coverRawData ? JSON.parse(feature.coverRawData) : null : null).then((coverRawData)=>{

@@ -27,7 +27,7 @@ const isRepoExsit = async function (url) {
 
 const getRepoDir = async function (url) {
   return new Promise((resolve, reject) => {
-    console.log("--------",url)
+    // console.log("--------",url)
 
     db.get(url, function (err, value) {
       if (value && value != "undefined") {
@@ -86,8 +86,8 @@ const updateRepo = function (repo) {
     const localPath = path.join(GIT_BASEDIR, dirname)
     const git = simpleGit(localPath)
     git.fetch('origin', (err, res) => {
-      console.log('err',err)
-      console.log('res',res)
+      // console.log('err',err)
+      // console.log('res',res)
       resovle()
     })
   })
