@@ -13,10 +13,11 @@
     "build-app": "cd example/app && yarn build",
     "test-gen": "cd packages/report-generator && yarn test",
     "build-vcplugin": "cd packages/vconsole-plugin && yarn build",
-    "dev-vcplugin": "cd packages/vconsole-plugin && yarn dev"
+    "dev-vcplugin": "cd packages/vconsole-plugin && yarn dev",
+    "publish": "pnpm publish -r --access public --no-git-checks"
   },
   "keywords": [],
-  "author": "",
+  "author": "568550678@qq.com",
   "license": "ISC",
   "private": true
 }
