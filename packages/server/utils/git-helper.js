@@ -122,16 +122,20 @@ const getDiffMessage = async function (repo, hashs) {
 const getDiff = async function (repo, hashs, branch) {
 
   // console.log("res: "+ await isRepoExsit(repo))
-
-  if (!await isRepoExsit(repo)) {
-    // create
-    // console.log("gen")
-
-    await createRepo(repo);
-  } else {
-    await updateRepo(repo);
+  try {
+    if (!await isRepoExsit(repo)) {
+      // create
+      // console.log("gen")
+  
+      await createRepo(repo);
+    } else {
+      await updateRepo(repo);
+    }
+    return await getDiffMessage(repo, hashs);
+  } catch (error) {
+    return Promise.reject(error)
   }
-  return await getDiffMessage(repo, hashs);
+ 
 };
 
 const checkoutRepo =  async function (repo, branch) {

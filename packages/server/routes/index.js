@@ -142,6 +142,13 @@ router.post('/report-cov', async function(req, res, next) {
         })
         // genReport(req.body.data, `./public/report`, ress.diff)
 
+      }).catch((err) => {
+        console.log(err);
+        res.send({
+          'success': false,
+          'message': err
+        })
+        return
       });
       
       // diff = await getDiff(req.query.repo, req.query.commits)
