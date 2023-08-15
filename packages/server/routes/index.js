@@ -136,8 +136,15 @@ router.post('/report-cov', async function(req, res, next) {
           try {
             feature.coverRawData = JSON.stringify(coverRawData)
             project.save();
+            res.send({
+              'success': true,
+            })
           } catch (error) {
             console.log(error)
+            res.send({
+              'success': false,
+              message: error
+            })
           }
         })
         // genReport(req.body.data, `./public/report`, ress.diff)
@@ -159,9 +166,6 @@ router.post('/report-cov', async function(req, res, next) {
     // setTimeout(() => {
     // }, 0);
   }
-  res.send({
-    'success': true,
-  })
 })
 
 module.exports = router;

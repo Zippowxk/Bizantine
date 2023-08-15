@@ -131,7 +131,7 @@ const getDiff = async function (repo, hashs, branch) {
     } else {
       await updateRepo(repo);
     }
-    return await getDiffMessage(repo, hashs);
+    return getDiffMessage(repo, hashs);
   } catch (error) {
     return Promise.reject(error)
   }
