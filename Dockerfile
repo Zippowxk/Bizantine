@@ -7,12 +7,14 @@ WORKDIR /usr/src/app
 # Copy the rest of the application into the image
 COPY . .
 
-RUN npm install -g pnpm
+#RUN npm install -g pnpm
+RUN corepack enable
+RUN corepack prepare pnpm@7.18.0 --activate
 
-RUN pnpm install
+RUN npm config set registry https://registry.npm.taobao.org/ && pnpm install
 
 # Define the port the app runs on
 EXPOSE 3000
 
 # Define the command to run your app using CMD which defines your runtime
-CMD [ "npm", "start-server" ]
+CMD [ "npm","run", "start-server"]
